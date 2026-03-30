@@ -1,8 +1,931 @@
-<html>
-    <head>
-        <title>Samhita Ghosh</title>
-    </head>
-	<body>
-        hola
-	</body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Personal website for Samhita Ghosh — software engineer, researcher, builder, and designer."
+    />
+    <title>Samhita Ghosh</title>
+    <style>
+      :root {
+        --bg: #f6f7fb;
+        --surface: rgba(255, 255, 255, 0.82);
+        --surface-strong: #ffffff;
+        --text: #121826;
+        --muted: #5d6472;
+        --line: rgba(18, 24, 38, 0.08);
+        --accent: #635bff;
+        --accent-soft: rgba(99, 91, 255, 0.1);
+        --shadow: 0 14px 40px rgba(18, 24, 38, 0.08);
+        --radius: 22px;
+        --max-width: 1120px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(99, 91, 255, 0.08), transparent 28%),
+          radial-gradient(circle at top right, rgba(39, 195, 245, 0.08), transparent 22%),
+          var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      .page-shell {
+        width: min(100% - 2rem, var(--max-width));
+        margin: 0 auto;
+      }
+
+      .glass {
+        background: var(--surface);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        box-shadow: var(--shadow);
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        padding-top: 1rem;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.9rem 1.2rem;
+        border-radius: 999px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+
+      .brand-mark {
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, var(--accent), #1ea7ff);
+        color: white;
+        font-size: 0.95rem;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.9rem;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .nav-links a:hover,
+      .nav-links a:focus-visible {
+        color: var(--text);
+      }
+
+      main {
+        padding: 2rem 0 4rem;
+      }
+
+      section {
+        padding: 1.2rem 0;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.45fr 0.95fr;
+        gap: 1.4rem;
+        align-items: stretch;
+        margin-top: 1.4rem;
+      }
+
+      .hero-card,
+      .panel,
+      .project-card,
+      .timeline-card,
+      .art-card,
+      .publication-card,
+      .stat-card,
+      .contact-card {
+        border-radius: var(--radius);
+        padding: 1.5rem;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.35rem 0.75rem;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-size: 0.84rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        font-size: clamp(2.3rem, 5vw, 4.3rem);
+        line-height: 0.95;
+        letter-spacing: -0.05em;
+        margin-bottom: 1rem;
+      }
+
+      .hero-copy p {
+        font-size: 1.03rem;
+        color: var(--muted);
+        max-width: 60ch;
+      }
+
+      .hero-actions,
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-top: 1.4rem;
+      }
+
+      .button,
+      .button-secondary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+        padding: 0.9rem 1.15rem;
+        border-radius: 999px;
+        font-weight: 600;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      }
+
+      .button {
+        background: linear-gradient(135deg, var(--accent), #1ea7ff);
+        color: white;
+        box-shadow: 0 12px 30px rgba(99, 91, 255, 0.22);
+      }
+
+      .button-secondary {
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.8);
+        color: var(--text);
+      }
+
+      .button:hover,
+      .button-secondary:hover {
+        transform: translateY(-1px);
+      }
+
+      .mini-grid,
+      .stats-grid,
+      .panel-grid,
+      .projects-grid,
+      .art-grid,
+      .contact-grid {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .mini-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-self: stretch;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .stat-card strong {
+        display: block;
+        font-size: 1.8rem;
+        line-height: 1;
+        margin-bottom: 0.45rem;
+        letter-spacing: -0.04em;
+      }
+
+      .stat-card span,
+      .meta,
+      .muted,
+      .project-card p,
+      .timeline-card p,
+      .art-card p,
+      .publication-card p,
+      .contact-card p {
+        color: var(--muted);
+      }
+
+      .section-header {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .section-header h2 {
+        font-size: clamp(1.65rem, 3vw, 2.35rem);
+        letter-spacing: -0.04em;
+        margin-bottom: 0.3rem;
+      }
+
+      .panel-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .panel ul,
+      .timeline-card ul {
+        margin: 0;
+        padding-left: 1.1rem;
+        color: var(--muted);
+      }
+
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin: 0.85rem 0 1rem;
+      }
+
+      .tag {
+        display: inline-flex;
+        padding: 0.35rem 0.7rem;
+        border-radius: 999px;
+        background: rgba(18, 24, 38, 0.05);
+        color: var(--text);
+        font-size: 0.82rem;
+        font-weight: 600;
+      }
+
+      .timeline {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .timeline-card {
+        border-left: 4px solid var(--accent);
+      }
+
+      .timeline-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .timeline-head h3,
+      .project-card h3,
+      .panel h3,
+      .art-card h3,
+      .publication-card h3,
+      .contact-card h3 {
+        font-size: 1.08rem;
+        margin-bottom: 0.25rem;
+        letter-spacing: -0.02em;
+      }
+
+      .projects-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .project-card,
+      .panel,
+      .timeline-card,
+      .art-card,
+      .publication-card,
+      .stat-card,
+      .contact-card,
+      .hero-card {
+        border: 1px solid var(--line);
+      }
+
+      .project-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .project-links,
+      .art-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+        margin-top: 1.1rem;
+      }
+
+      .text-link {
+        font-weight: 600;
+        color: var(--accent);
+      }
+
+      .text-link.placeholder {
+        color: var(--muted);
+      }
+
+      .art-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .art-preview {
+        aspect-ratio: 4 / 3;
+        border-radius: 18px;
+        margin-bottom: 1rem;
+        background:
+          linear-gradient(140deg, rgba(99, 91, 255, 0.18), rgba(30, 167, 255, 0.18)),
+          repeating-linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.55),
+            rgba(255, 255, 255, 0.55) 10px,
+            rgba(255, 255, 255, 0.2) 10px,
+            rgba(255, 255, 255, 0.2) 20px
+          );
+        border: 1px solid rgba(255, 255, 255, 0.7);
+      }
+
+      .publication-card {
+        display: grid;
+        grid-template-columns: 1.4fr auto;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .contact-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .footer {
+        padding: 1rem 0 3rem;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .footer-line {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+        padding-top: 1rem;
+        border-top: 1px solid var(--line);
+      }
+
+      @media (max-width: 980px) {
+        .hero,
+        .publication-card,
+        .panel-grid,
+        .projects-grid,
+        .art-grid,
+        .contact-grid,
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .mini-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .nav {
+          border-radius: 24px;
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav-links,
+        .hero-actions,
+        .button-row,
+        .project-links,
+        .art-links {
+          width: 100%;
+        }
+
+        .mini-grid,
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .timeline-head,
+        .section-header,
+        .footer-line {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .hero-card,
+        .panel,
+        .project-card,
+        .timeline-card,
+        .art-card,
+        .publication-card,
+        .stat-card,
+        .contact-card {
+          padding: 1.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      Personal site structure notes:
+      1. Replace any href="#" placeholders with your real repo / portfolio / art links.
+      2. Duplicate or delete cards as your portfolio changes.
+      3. The styling is intentionally centralized in one <style> block for easy redesign later.
+    -->
+
+    <header class="site-header page-shell">
+      <nav class="nav glass" aria-label="Primary navigation">
+        <a class="brand" href="#top">
+          <span class="brand-mark">SG</span>
+          <span>Samhita Ghosh</span>
+        </a>
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#highlights">Highlights</a>
+          <a href="#projects">Projects</a>
+          <a href="#publications">Publications</a>
+          <a href="#art">Art & Design</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="page-shell" id="top">
+      <section class="hero" id="about">
+        <article class="hero-card glass hero-copy">
+          <div class="eyebrow">Software engineer · researcher · builder</div>
+          <h1>
+            I build thoughtful systems across
+            <span style="color: var(--accent)">engineering, AI, research, and design.</span>
+          </h1>
+          <p>
+            I'm Samhita Ghosh, a UC Berkeley student in Computer Science and Applied Mathematics.
+            My work spans secure systems, machine learning, computer vision, full-stack development,
+            avionics, and technical leadership.
+          </p>
+          <p>
+            This site is a simple home for my coding portfolio, publications, resume highlights,
+            creative work, and the projects I care most about.
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="#projects">Explore projects</a>
+            <a class="button-secondary" href="#publications">View publications</a>
+            <a class="button-secondary" href="https://github.com/samhitag3" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+        </article>
+
+        <div class="mini-grid">
+          <article class="stat-card glass">
+            <strong>80+</strong>
+            <span>members led as President of Berkeley Codeology</span>
+          </article>
+          <article class="stat-card glass">
+            <strong>5,000+</strong>
+            <span>offers exported in production ETL work at Capital One</span>
+          </article>
+          <article class="stat-card glass">
+            <strong>100K+</strong>
+            <span>texts processed in Akkadian → English translation work</span>
+          </article>
+          <article class="stat-card glass">
+            <strong>1</strong>
+            <span>publication in Monthly Notices of the Royal Astronomical Society</span>
+          </article>
+        </div>
+      </section>
+
+      <section id="highlights">
+        <div class="section-header">
+          <div>
+            <div class="eyebrow">Highlights</div>
+            <h2>What I focus on</h2>
+          </div>
+          <p class="muted">A quick snapshot of the technical and creative threads across my work.</p>
+        </div>
+
+        <div class="panel-grid">
+          <article class="panel glass">
+            <h3>Engineering impact</h3>
+            <p>
+              Secure APIs, production ETL, full-stack product work, and systems built to scale beyond the classroom.
+            </p>
+            <div class="tag-row">
+              <span class="tag">TypeScript</span>
+              <span class="tag">Go</span>
+              <span class="tag">AWS</span>
+              <span class="tag">Flask</span>
+            </div>
+          </article>
+
+          <article class="panel glass">
+            <h3>Research + ML</h3>
+            <p>
+              Computer vision, neural rendering, diffusion models, translation pipelines, and scientific data analysis.
+            </p>
+            <div class="tag-row">
+              <span class="tag">PyTorch</span>
+              <span class="tag">OpenCV</span>
+              <span class="tag">NumPy</span>
+              <span class="tag">scikit-learn</span>
+            </div>
+          </article>
+
+          <article class="panel glass">
+            <h3>Leadership + design</h3>
+            <p>
+              Student leadership, project execution, community building, and room to showcase UI work and art.
+            </p>
+            <div class="tag-row">
+              <span class="tag">Product thinking</span>
+              <span class="tag">Visual storytelling</span>
+              <span class="tag">Team leadership</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-header">
+          <div>
+            <div class="eyebrow">Resume snapshot</div>
+            <h2>Selected experience</h2>
+          </div>
+          <p class="muted">These cards make the strongest items from your resume easy to skim.</p>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-card glass">
+            <div class="timeline-head">
+              <div>
+                <h3>Capital One · Software Engineering Intern</h3>
+                <div class="meta">C1 Travel · Bank Servicing</div>
+              </div>
+              <div class="meta">2024–2025</div>
+            </div>
+            <ul>
+              <li>Integrated a generative-AI service into Capital One Travel with secure eligibility-check APIs.</li>
+              <li>Architected a daily AWS Glue ETL exporting 5,000+ offers to S3 with validation and unit tests.</li>
+              <li>Built TypeScript/Angular features to streamline associate workflows and support scaled rollout.</li>
+            </ul>
+          </article>
+
+          <article class="timeline-card glass">
+            <div class="timeline-head">
+              <div>
+                <h3>Space Enterprise at Berkeley · Avionics &amp; Simulations Engineer</h3>
+                <div class="meta">PCB design, firmware, telemetry, test integration</div>
+              </div>
+              <div class="meta">2022–2024</div>
+            </div>
+            <ul>
+              <li>Designed and assembled PCBs in Altium and wrote C++ firmware for sensing and telemetry systems.</li>
+              <li>Supported coldflow and static fire integration while improving internal analysis tooling in Python.</li>
+            </ul>
+          </article>
+
+          <article class="timeline-card glass">
+            <div class="timeline-head">
+              <div>
+                <h3>Berkeley Codeology · President</h3>
+                <div class="meta">Student leadership, technical education, project management</div>
+              </div>
+              <div class="meta">2025–Present</div>
+            </div>
+            <ul>
+              <li>Lead an 80+ member technical club and oversee 13 officers.</li>
+              <li>Recruit from 300+ applicants and run 5+ educational software projects each semester.</li>
+            </ul>
+          </article>
+
+          <article class="timeline-card glass">
+            <div class="timeline-head">
+              <div>
+                <h3>Space Sciences Laboratory · Undergraduate Research Apprentice</h3>
+                <div class="meta">Scientific computing + astronomy data analysis</div>
+              </div>
+              <div class="meta">2023</div>
+            </div>
+            <ul>
+              <li>Developed optimized binning techniques for gamma-ray telescope response data in Python/Linux.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="section-header">
+          <div>
+            <div class="eyebrow">Coding portfolio</div>
+            <h2>Selected projects</h2>
+          </div>
+          <p class="muted">Structured as reusable cards so you can easily add, remove, or restyle projects later.</p>
+        </div>
+
+        <div class="projects-grid">
+          <article class="project-card glass">
+            <div>
+              <h3>Encrypted File Sharing System</h3>
+              <p>
+                Secure file-sharing platform built around hybrid encryption, access control, revocation,
+                and authenticated-encryption protections against replay, MITM, and rollback attacks.
+              </p>
+              <div class="tag-row">
+                <span class="tag">Go</span>
+                <span class="tag">Cryptography</span>
+                <span class="tag">Security</span>
+              </div>
+            </div>
+            <div class="project-links">
+              <a class="text-link placeholder" href="#">Add repo link</a>
+              <a class="text-link placeholder" href="#">Add write-up</a>
+            </div>
+          </article>
+
+          <article class="project-card glass">
+            <div>
+              <h3>(Auto)stitching &amp; Photo Mosaics</h3>
+              <p>
+                Panorama stitching pipeline with feature matching, RANSAC-based homographies, and image blending.
+              </p>
+              <div class="tag-row">
+                <span class="tag">Python</span>
+                <span class="tag">NumPy</span>
+                <span class="tag">OpenCV</span>
+                <span class="tag">Computer Vision</span>
+              </div>
+            </div>
+            <div class="project-links">
+              <a class="text-link" href="https://samhitag3.github.io/cs-180-webpages/project3/index.html" target="_blank" rel="noreferrer">Live project page</a>
+              <a class="text-link placeholder" href="#">Add repo link</a>
+            </div>
+          </article>
+
+          <article class="project-card glass">
+            <div>
+              <h3>Neural Radiance Fields (NeRF)</h3>
+              <p>
+                Novel-view synthesis project implementing NeRF training and volumetric rendering,
+                with attention to the tradeoff between output quality and compute.
+              </p>
+              <div class="tag-row">
+                <span class="tag">PyTorch</span>
+                <span class="tag">Neural Rendering</span>
+                <span class="tag">3D Vision</span>
+              </div>
+            </div>
+            <div class="project-links">
+              <a class="text-link" href="https://samhitag3.github.io/cs-180-webpages/project4/index.html" target="_blank" rel="noreferrer">Live project page</a>
+              <a class="text-link placeholder" href="#">Add repo link</a>
+            </div>
+          </article>
+
+          <article class="project-card glass">
+            <div>
+              <h3>Diffusion Models &amp; Flow Matching U-Net</h3>
+              <p>
+                Image generation and inpainting pipelines built around diffusion and flow-matching training,
+                with custom U-Net experimentation.
+              </p>
+              <div class="tag-row">
+                <span class="tag">PyTorch</span>
+                <span class="tag">Generative AI</span>
+                <span class="tag">Diffusion</span>
+              </div>
+            </div>
+            <div class="project-links">
+              <a class="text-link" href="https://samhitag3.github.io/cs-180-webpages/project5/index.html" target="_blank" rel="noreferrer">Live project page</a>
+              <a class="text-link placeholder" href="#">Add repo link</a>
+            </div>
+          </article>
+
+          <article class="project-card glass">
+            <div>
+              <h3>Akkadian → English Translation Pipeline</h3>
+              <p>
+                Translation workflow spanning 100K+ texts using Hugging Face and spaCy,
+                including preprocessing and evaluation tooling.
+              </p>
+              <div class="tag-row">
+                <span class="tag">Python</span>
+                <span class="tag">Hugging Face</span>
+                <span class="tag">spaCy</span>
+                <span class="tag">NLP</span>
+              </div>
+            </div>
+            <div class="project-links">
+              <a class="text-link placeholder" href="#">Add repo link</a>
+              <a class="text-link placeholder" href="#">Add case study</a>
+            </div>
+          </article>
+
+          <article class="project-card glass">
+            <div>
+              <h3>More work coming soon</h3>
+              <p>
+                Use this card for future repos, hackathon builds, design engineering work,
+                or a separate section dedicated to coursework projects.
+              </p>
+              <div class="tag-row">
+                <span class="tag">Design portfolio</span>
+                <span class="tag">Hackathons</span>
+                <span class="tag">Research tools</span>
+              </div>
+            </div>
+            <div class="project-links">
+              <a class="text-link placeholder" href="#">Add new project</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="publications">
+        <div class="section-header">
+          <div>
+            <div class="eyebrow">Research</div>
+            <h2>Publications</h2>
+          </div>
+          <p class="muted">Keep this section as a clean list or expand it into full research pages later.</p>
+        </div>
+
+        <article class="publication-card glass">
+          <div>
+            <h3>Monthly Notices of the Royal Astronomical Society (MNRAS)</h3>
+            <p>
+              <strong>Estimating reddening of the continuum and broad-line region of active galactic nuclei:</strong>
+              the mean reddening of NGC 5548 and the size of the accretion disc.
+            </p>
+            <p class="meta">Published January 2023</p>
+          </div>
+          <div class="button-row">
+            <a
+              class="button-secondary"
+              href="https://academic.oup.com/mnras/article/519/3/4082/6986240?login=false"
+              target="_blank"
+              rel="noreferrer"
+              >Read paper</a
+            >
+          </div>
+        </article>
+      </section>
+
+      <section id="art">
+        <div class="section-header">
+          <div>
+            <div class="eyebrow">Creative work</div>
+            <h2>Art &amp; design portfolio</h2>
+          </div>
+          <p class="muted">A ready-made area for visual work without locking you into a heavy gallery setup.</p>
+        </div>
+
+        <div class="art-grid">
+          <article class="art-card glass">
+            <div class="art-preview" aria-hidden="true"></div>
+            <h3>UI / product design</h3>
+            <p>
+              Showcase polished interface explorations, interaction studies, app concepts, or design systems.
+            </p>
+            <div class="art-links">
+              <a class="text-link placeholder" href="#">Add case study</a>
+              <a class="text-link placeholder" href="#">Add Figma link</a>
+            </div>
+          </article>
+
+          <article class="art-card glass">
+            <div class="art-preview" aria-hidden="true"></div>
+            <h3>Visual art</h3>
+            <p>
+              Use this for illustration, mixed media, digital sketches, branding, or any personal artwork you want to feature.
+            </p>
+            <div class="art-links">
+              <a class="text-link placeholder" href="#">Add gallery link</a>
+              <a class="text-link placeholder" href="#">Add image set</a>
+            </div>
+          </article>
+
+          <article class="art-card glass">
+            <div class="art-preview" aria-hidden="true"></div>
+            <h3>Design experiments</h3>
+            <p>
+              A flexible slot for posters, social media design, club branding, motion experiments, or portfolio miscellany.
+            </p>
+            <div class="art-links">
+              <a class="text-link placeholder" href="#">Add project link</a>
+              <a class="text-link placeholder" href="#">Add archive</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-header">
+          <div>
+            <div class="eyebrow">Toolkit</div>
+            <h2>Technical stack</h2>
+          </div>
+          <p class="muted">Kept lightweight here so you can turn this into icons, charts, or grouped categories later.</p>
+        </div>
+
+        <article class="panel glass">
+          <div class="tag-row">
+            <span class="tag">Python</span>
+            <span class="tag">Java</span>
+            <span class="tag">C/C++</span>
+            <span class="tag">Go</span>
+            <span class="tag">SQL</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">C#</span>
+            <span class="tag">Linux</span>
+            <span class="tag">Git</span>
+            <span class="tag">Docker</span>
+            <span class="tag">AWS</span>
+            <span class="tag">Databricks</span>
+            <span class="tag">Snowflake</span>
+            <span class="tag">Spark</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">OpenCV</span>
+            <span class="tag">React</span>
+            <span class="tag">Angular</span>
+            <span class="tag">Flask</span>
+            <span class="tag">Firebase</span>
+          </div>
+        </article>
+      </section>
+
+      <section id="contact">
+        <div class="section-header">
+          <div>
+            <div class="eyebrow">Get in touch</div>
+            <h2>Links &amp; contact</h2>
+          </div>
+          <p class="muted">You can keep this minimal or later add a form, newsletter, or downloadable resume.</p>
+        </div>
+
+        <div class="contact-grid">
+          <article class="contact-card glass">
+            <h3>Email</h3>
+            <p>For opportunities, collaborations, research, and creative projects.</p>
+            <a class="text-link" href="mailto:samhita.ghosh@berkeley.edu">samhita.ghosh@berkeley.edu</a>
+          </article>
+
+          <article class="contact-card glass">
+            <h3>GitHub</h3>
+            <p>Code, experiments, and repositories.</p>
+            <a class="text-link" href="https://github.com/samhitag3" target="_blank" rel="noreferrer">github.com/samhitag3</a>
+          </article>
+
+          <article class="contact-card glass">
+            <h3>LinkedIn</h3>
+            <p>Experience, updates, and professional background.</p>
+            <a class="text-link" href="https://linkedin.com/in/samhita-ghosh" target="_blank" rel="noreferrer">linkedin.com/in/samhita-ghosh</a>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="page-shell footer">
+      <div class="footer-line">
+        <span>Designed as a clean single-file starting point for future customization.</span>
+        <span>© <span id="year"></span> Samhita Ghosh</span>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
 </html>
